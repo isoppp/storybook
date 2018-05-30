@@ -6,22 +6,25 @@ import {
   generateAddsMap,
 } from './generate-helpers';
 
-function extendOptions(source, comments, options) {
+function extendOptions(source, comments, filepath, options) {
   return {
     ...defaultOptions,
     ...options,
     source,
     comments,
+    filepath,
   };
 }
 
-function inject(source, decorator, options = {}) {
+function inject(source, decorator, resourcePath, options = {}) {
+  // console.log('options1================:\n', options);
   const { changed, source: newSource, comments } = generateSourceWithDecorators(
     source,
     decorator,
     options.parser
   );
 
+  console.log('changed:', changed);
   if (!changed) {
     return {
       source: newSource,
@@ -30,7 +33,8 @@ function inject(source, decorator, options = {}) {
     };
   }
 
-  const storySource = generateStorySource(extendOptions(source, comments, options));
+  const filepath = resourcePath;
+  const storySource = generateStorySource(extendOptions(source, comments, filepath, options));
   const addsMap = generateAddsMap(storySource, options.parser);
 
   return {

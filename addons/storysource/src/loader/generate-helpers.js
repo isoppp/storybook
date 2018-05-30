@@ -27,7 +27,7 @@ function generateSourceWithoutUglyComments(source, { comments, uglyCommentsRegex
   return parts.join('');
 }
 
-function prettifyCode(source, { prettierConfig, parser }) {
+function prettifyCode(source, { prettierConfig, parser, filepath }) {
   let config = prettierConfig;
 
   if (!config.parser && parser && parser !== 'javascript') {
@@ -35,7 +35,14 @@ function prettifyCode(source, { prettierConfig, parser }) {
       ...prettierConfig,
       parser,
     };
+  } else if (filepath) {
+    config = {
+      ...prettierConfig,
+      filepath,
+    };
   }
+
+  console.log('before prettify================:\n', config);
 
   return prettier.format(source, config);
 }
@@ -66,7 +73,9 @@ export function generateAddsMap(source, parserType) {
 
 export function generateStorySource({ source, ...options }) {
   let storySource = source;
+  // console.log('options2================:\n', options);
 
+  console.log('generateStorysource', options);
   storySource = generateSourceWithoutUglyComments(storySource, options);
   storySource = prettifyCode(storySource, options);
 

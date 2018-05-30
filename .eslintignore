@@ -6,6 +6,7 @@ docs/public
 storybook-static
 built-storybooks
 lib/cli/test
+__mocks__
 *.bundle.js
 *.js.map
 

@@ -1,5 +1,5 @@
+/* eslint-disable global-require, import/no-dynamic-require, no-unused-vars, import/no-extraneous-dependencies */
 /* global window */
-/* eslint-disable global-require, import/no-dynamic-require */
 
 import React from 'react';
 
@@ -14,8 +14,7 @@ import { storiesOf } from '@storybook/react';
 /* eslint-disable-line */ const x = 0;
 
 // eslint-disable-line
-storiesOf('Foo', module)
-  .add('bar', () => <div>baz</div>);
+storiesOf('Foo', module).add('bar', () => <div>baz</div>);
 
 /*
  This is actually a good comment that will help
